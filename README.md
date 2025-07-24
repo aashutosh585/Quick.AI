@@ -1,136 +1,347 @@
-# Quick.AI: A Content Creation Platform
+# 🚀 Quick.AI - AI-Powered Content Creation Platform
 
-This repository contains the source code for a full-stack AI-powered Software-as-a-Service (SaaS) application. It provides users with a suite of tools for generating and manipulating content, including articles, blog titles, images, and more.
+A comprehensive full-stack AI SaaS application that empowers users to create content, generate images, and enhance their digital assets using cutting-edge artificial intelligence.
+
+## 🌐 Live Demo
+
+**🔗 [Try Quick.AI Live](https://quickai-rho.vercel.app/)**
+
+## 📋 Table of Contents
+
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Environment Variables](#-environment-variables)
+- [Usage](#-usage)
+- [API Endpoints](#-api-endpoints)
+- [Database Schema](#-database-schema)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ## ✨ Features
 
-- **AI Article Writer:** Generate high-quality, engaging articles on any topic.
-- **Blog Title Generator:** Create catchy and effective titles for your blog posts.
-- **AI Image Generation:** Produce stunning, unique images from text prompts.
-- **Image Background Removal:** Automatically remove backgrounds from images.
-- **Image Object Removal:** Seamlessly erase unwanted objects from photos.
-- **AI Resume Reviewer:** Get AI-driven feedback and suggestions to improve your resume.
-- **User Authentication:** Secure user sign-up, sign-in, and profile management powered by Clerk.
-- **Usage-Based Plans:** A free plan with usage limits and a premium plan for unrestricted access.
-- **Community Gallery:** A public space for users to share their published AI-generated images and like others' creations.
+### 🎯 Core AI Tools
+- **AI Article Writer**: Generate high-quality, engaging articles with customizable length (500-1600+ words)
+- **Blog Title Generator**: Create catchy and SEO-optimized titles across 8 different categories
+- **AI Image Generation**: Produce stunning images from text prompts with 8+ artistic styles
+- **Background Removal**: Automatically remove backgrounds from images using AI
+- **Object Removal**: Seamlessly erase unwanted objects from photos
+- **Resume Reviewer**: Get AI-driven feedback and suggestions to improve your resume
 
-## 🛠️ Tech Stack
+### 👥 User Experience
+- **Authentication**: Secure user management with Clerk
+- **Dashboard**: Personal workspace to view all your AI creations
+- **Community Gallery**: Share and discover AI-generated content from other users
+- **Like System**: Engage with community content through likes
+- **Usage Plans**: Free tier with limits + Premium unlimited access
 
-The project is structured as a monorepo with a separate `client` and `server`.
+### 🔧 Technical Features
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Real-time Feedback**: Toast notifications for all user actions
+- **File Upload**: Secure image and PDF upload functionality
+- **Content Management**: Publish/unpublish your creations
+- **Database Persistence**: All creations are stored and retrievable
 
-### Frontend (Client)
+## 🛠 Tech Stack
 
-- **Framework:** React (with Vite)
-- **Styling:** Tailwind CSS
-- **Routing:** React Router
-- **Authentication:** Clerk React
-- **HTTP Client:** Axios
-- **UI Components:** Lucide React for icons, React Markdown for rendering.
-- **Notifications:** React Hot Toast
+### Frontend
+- **React 19** - Modern UI library
+- **Vite** - Fast build tool and development server
+- **React Router DOM** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
+- **Axios** - HTTP client for API requests
+- **Lucide React** - Beautiful icon library
+- **React Hot Toast** - Elegant notifications
+- **React Markdown** - Markdown rendering
+- **Clerk** - Authentication and user management
 
-### Backend (Server)
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web application framework
+- **PostgreSQL** - Primary database (via Neon)
+- **Clerk Express** - Authentication middleware
+- **Cloudinary** - Image storage and processing
+- **Multer** - File upload handling
+- **OpenAI API** - AI text generation (via Gemini)
+- **ClipDrop API** - AI image generation
+- **PDF Parse** - Resume processing
 
-- **Framework:** Express.js
-- **Authentication:** Clerk Express Middleware
-- **Database:** Neon (Serverless PostgreSQL)
-- **AI Services:**
-  - **Text Generation:** Google Gemini API (via OpenAI SDK wrapper)
-  - **Image Generation:** Clipdrop API
-  - **Image Processing:** Cloudinary API for background/object removal and storage.
-- **File Handling:** Multer for file uploads, `pdf-parse` for resumes.
-- **Deployment:** Configuration provided for Vercel.
+### Database & Storage
+- **Neon PostgreSQL** - Serverless PostgreSQL database
+- **Cloudinary** - Cloud-based image and video management
 
-## 🏛️ Architecture
+## 📁 Project Structure
 
-The application is split into two main parts:
+```
+AI SaaS/
+├── client/                     # Frontend React application
+│   ├── public/                 # Static assets
+│   ├── src/
+│   │   ├── assets/            # Images, icons, and data
+│   │   ├── components/        # Reusable UI components
+│   │   │   ├── AiTools.jsx    # AI tools showcase
+│   │   │   ├── CreationItem.jsx # Individual creation display
+│   │   │   ├── Footer.jsx     # Site footer
+│   │   │   ├── Hero.jsx       # Landing page hero
+│   │   │   ├── Navbar.jsx     # Navigation bar
+│   │   │   ├── Plan.jsx       # Pricing plans
+│   │   │   ├── Sidebar.jsx    # Dashboard sidebar
+│   │   │   └── Testimonial.jsx # User testimonials
+│   │   ├── pages/             # Application pages
+│   │   │   ├── BlogTitles.jsx # Blog title generator
+│   │   │   ├── Community.jsx  # Community gallery
+│   │   │   ├── DashBoard.jsx  # User dashboard
+│   │   │   ├── GenerateImages.jsx # Image generation
+│   │   │   ├── Home.jsx       # Landing page
+│   │   │   ├── Layout.jsx     # App layout wrapper
+│   │   │   ├── RemoveBackground.jsx # Background removal
+│   │   │   ├── RemoveObject.jsx # Object removal
+│   │   │   ├── ReviewResume.jsx # Resume review
+│   │   │   └── WriteArticle.jsx # Article generation
+│   │   ├── App.jsx            # Main app component
+│   │   ├── index.css          # Global styles
+│   │   └── main.jsx           # App entry point
+│   ├── .env                   # Environment variables
+│   ├── package.json           # Dependencies and scripts
+│   └── vite.config.js         # Vite configuration
+├── server/                     # Backend Express application
+│   ├── configs/               # Configuration files
+│   │   ├── cloudinary.js      # Cloudinary setup
+│   │   ├── db.js              # Database connection
+│   │   └── multer.js          # File upload config
+│   ├── controllers/           # Route controllers
+│   │   ├── aiController.js    # AI-related endpoints
+│   │   └── userController.js  # User-related endpoints
+│   ├── middlewares/           # Custom middleware
+│   │   └── auth.js            # Authentication middleware
+│   ├── routes/                # API routes
+│   │   ├── aiRoutes.js        # AI endpoints routing
+│   │   └── userRoutes.js      # User endpoints routing
+│   ├── package.json           # Dependencies and scripts
+│   └── server.js              # Express server setup
+└── README.md                   # Project documentation
+```
 
--   `client/`: A modern React single-page application built with Vite. It handles all user interface elements, state management, and interaction. It communicates with the backend via a REST API.
--   `server/`: A Node.js and Express.js REST API that serves as the backend. It manages business logic, interacts with third-party AI services (Gemini, Cloudinary, Clipdrop), handles user authentication with Clerk, and connects to the Neon PostgreSQL database for data persistence.
+## 📋 Prerequisites
 
-All AI-related routes are protected and require user authentication. A custom middleware tracks API usage for non-premium users.
+Before running this application, make sure you have:
 
-## 🚀 Getting Started
+- **Node.js** (v18 or higher)
+- **npm** or **yarn**
+- **PostgreSQL database** (Neon recommended)
+- **Clerk account** for authentication
+- **Cloudinary account** for image storage
+- **OpenAI API key** (or Gemini API key)
+- **ClipDrop API key** for image generation
 
-To run this project locally, follow the steps below.
+## 🚀 Installation
 
-### Prerequisites
+### 1. Clone the Repository
 
--   Node.js (v18 or higher)
--   npm or pnpm or yarn
--   A Neon account for the PostgreSQL database.
--   A Clerk account for authentication.
--   API keys for Gemini, Cloudinary, and Clipdrop.
+```bash
+git clone https://github.com/aashutosh585/AI-SaaS.git
+cd AI-SaaS
+```
 
-### Server Setup
+### 2. Install Frontend Dependencies
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/aashutosh585/AI-SaaS.git
-    cd AI-SaaS/server
-    ```
+```bash
+cd client
+npm install
+```
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+### 3. Install Backend Dependencies
 
-3.  **Create a `.env` file** in the `server` directory and add the following environment variables with your credentials:
-    ```env
-    PORT=3000
-    DATABASE_URL="your_neon_database_connection_string"
-    CLERK_SECRET_KEY="your_clerk_secret_key"
-    GEMINI_API_KEY="your_gemini_api_key"
-    CLIPDROP_API_KEY="your_clipdrop_api_key"
-    CLOUDINARY_CLOUD_NAME="your_cloudinary_cloud_name"
-    CLOUDINARY_API_KEY="your_cloudinary_api_key"
-    CLOUDINARY_API_SECRET="your_cloudinary_api_secret"
-    ```
+```bash
+cd ../server
+npm install
+```
 
-4.  **Run the server:**
-    ```bash
-    npm run server
-    ```
-    The server will be running on `http://localhost:3000`.
+## 🔐 Environment Variables
 
-### Client Setup
+### Frontend (.env)
 
-1.  **Navigate to the client directory:**
-    ```bash
-    cd ../client
-    ```
+Create a `.env` file in the `client` directory:
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+```env
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+VITE_BASE_URL=http://localhost:3000
+```
 
-3.  **Create a `.env` file** in the `client` directory and add the following:
-    ```env
-    VITE_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
-    VITE_BASE_URL="http://localhost:3000"
-    ```
+### Backend (.env)
 
-4.  **Run the client development server:**
-    ```bash
-    npm run dev
-    ```
-    The application will be accessible at `http://localhost:5173`.
+Create a `.env` file in the `server` directory:
 
-## ⚙️ API Endpoints
+```env
+# Database
+DATABASE_URL=your_neon_postgresql_connection_string
 
-The backend exposes the following RESTful endpoints under the `/api` prefix. All routes require authentication.
+# Authentication
+CLERK_SECRET_KEY=your_clerk_secret_key
+CLERK_WEBHOOK_SECRET=your_clerk_webhook_secret
+
+# AI Services
+GEMINI_API_KEY=your_gemini_api_key
+CLIPDROP_API_KEY=your_clipdrop_api_key
+
+# Cloud Storage
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+# Server
+PORT=3000
+NODE_ENV=development
+```
+
+## 🏃‍♂️ Usage
+
+### Development Mode
+
+1. **Start the Backend Server**:
+```bash
+cd server
+npm run server
+```
+
+2. **Start the Frontend Development Server**:
+```bash
+cd client
+npm run dev
+```
+
+3. **Access the Application**:
+   - Frontend: `http://localhost:5173`
+   - Backend API: `http://localhost:3000`
+
+### Production Mode
+
+1. **Build the Frontend**:
+```bash
+cd client
+npm run build
+```
+
+2. **Start the Production Server**:
+```bash
+cd server
+npm start
+```
+
+## 🛠 API Endpoints
 
 ### AI Endpoints (`/api/ai`)
 
--   `POST /generate-article`: Generates a full article based on a prompt.
--   `POST /generate-blog-title`: Generates blog titles from a keyword and category.
--   `POST /generate-images`: Creates an image from a text prompt.
--   `POST /remove-background`: Removes the background from an uploaded image.
--   `POST /remove-image-object`: Removes a specified object from an uploaded image.
--   `POST /resume-review`: Analyzes an uploaded PDF resume and provides feedback.
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/generate-article` | Generate articles with custom length | ✅ |
+| POST | `/generate-blog-title` | Create blog titles by category | ✅ |
+| POST | `/generate-images` | Generate images from text prompts | ✅ |
+| POST | `/remove-background` | Remove image backgrounds | ✅ |
+| POST | `/remove-image-object` | Remove objects from images | ✅ |
+| POST | `/resume-review` | Analyze and review resumes | ✅ |
 
 ### User Endpoints (`/api/user`)
 
--   `GET /get-user-creations`: Fetches all creations made by the authenticated user.
--   `GET /get-published-creations`: Fetches all publicly published creations (for the community page).
--   `POST /toggle-like-creation`: Adds or removes a like from a creation.
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/get-user-creations` | Fetch user's all creations | ✅ |
+| GET | `/get-published-creations` | Fetch public community creations | ✅ |
+| POST | `/toggle-like-creation` | Like/unlike community creations | ✅ |
+
+## 🗄 Database Schema
+
+### Creations Table
+
+```sql
+CREATE TABLE creations (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR(255) NOT NULL,
+  prompt TEXT NOT NULL,
+  content TEXT NOT NULL,
+  type VARCHAR(50) NOT NULL, -- 'article', 'blog-title', 'image'
+  publish BOOLEAN DEFAULT false,
+  likes TEXT[], -- Array of user IDs who liked
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+## 🎯 Key Features Explained
+
+### AI Article Writer
+- Generate articles from 500 to 1600+ words
+- Customizable prompts and topics
+- Markdown formatting support
+- Instant preview and editing
+
+### Blog Title Generator
+- 8 categories: General, Technology, Health, Lifestyle, Travel, Food, Education, Business
+- SEO-optimized suggestions
+- Multiple title variations per request
+
+### AI Image Generation
+- 8 artistic styles: Realistic, Ghibli, Cartoon, Anime, Fantasy, 3D, Portrait
+- High-quality image output
+- Cloudinary integration for storage
+- Community sharing options
+
+### Background & Object Removal
+- AI-powered precision removal
+- Support for JPG, PNG formats
+- Real-time processing feedback
+- Download and save functionality
+
+### Community Features
+- Public gallery of user creations
+- Like and engagement system
+- Real-time updates
+- User authentication integration
+
+## 🔧 Development
+
+### Frontend Scripts
+
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run ESLint
+```
+
+### Backend Scripts
+
+```bash
+npm run server   # Start with nodemon (development)
+npm start        # Start production server
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Clerk** for seamless authentication
+- **OpenAI/Gemini** for powerful AI capabilities
+- **Cloudinary** for reliable image processing
+- **Neon** for serverless PostgreSQL
+- **Tailwind CSS** for beautiful UI components
+
+## 📞 Support
+
+For support, email support@quickai.com or join our Discord community.
+
+---
+
+**Built with ❤️ by [Ashutosh Maurya](https://github.com/aashutosh585)**
