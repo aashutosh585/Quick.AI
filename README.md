@@ -18,7 +18,6 @@ A comprehensive full-stack AI SaaS application that empowers users to create con
 - [API Endpoints](#-api-endpoints)
 - [Database Schema](#-database-schema)
 - [Contributing](#-contributing)
-- [License](#-license)
 
 ## ✨ Features
 
