@@ -38,14 +38,20 @@ const GenerateImages = () => {
         { prompt,publish },
         { headers: { Authorization: `Bearer ${await getToken()}` } }
       );
-
-      if (data.success) {
+      console.log("Image generation response:", data);
+      console.log("Image generation response:", data.success);
+      if (data.success===true) {
         setContent(data.content);
       } else {
-        toast.error(err.message);
+        toast.error(data?.message);
       }
-      setLoading(false);
-    } catch (err) {}
+    
+    } catch (err) {
+     
+      console.error("Error generating image:", err);
+      toast.error(err.response?.data?.message || "Failed to generate image"); 
+    }
+    setLoading(false);
   };
 
   return (

@@ -6,6 +6,8 @@ import axios from "axios";
 import fs from "fs";
 import pdf from "pdf-parse/lib/pdf-parse.js";
 import FormData from "form-data";
+import dotenv from "dotenv";
+dotenv.config();
 
 const AI = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -110,21 +112,29 @@ export const generateBlogTitle = async (req, res) => {
 // Image Generation
 export const generateImage = async (req, res) => {
   try {
+    if(!process.env.CLIPDROP_API_KEY){
+      console.log("CLIPDROP_API_KEY is not set in environment variables." , process.env.CLIPDROP_API_KEY);
+      return res.json({
+        success: false,
+        message: "CLIPDROP_API_KEY is not set in environment variables.",
+      });
+    }
     const { userId } = req.auth();
     const { prompt, publish } = req.body;
     const plan = req.plan;
-
+    
+    console.log("CLIPDROP_API_KEY is  set in environment variables." , process.env.CLIPDROP_API_KEY);
     // if (plan !== "premium") {
     //   return res.json({
     //     success: false,
     //     message: "This feature is only available for premium subscription",
     //   });
     // }
-
+    
     // 1) Build the form data
     const formData = new FormData();
     formData.append("prompt", prompt);
-
+    
     const { data } = await axios.post(
       "https://clipdrop-api.co/text-to-image/v1",
       formData,
@@ -133,22 +143,22 @@ export const generateImage = async (req, res) => {
         responseType: "arraybuffer",
       }
     );
-
+    
     // 3) Convert raw bytes to base64 data URI
     const base64Image = `data:image/png;base64,${Buffer.from(
       data,
       "binary"
     ).toString("base64")}`;
-
+    
     // 4) Upload to Cloudinary
     const { secure_url } = await cloudinary.uploader.upload(base64Image);
-
+    
     // 5) Persist and respond
     await sql`
-      INSERT INTO creations (user_id, prompt, content, type, publish)
-      VALUES (${userId}, ${prompt}, ${secure_url}, 'image', ${publish ?? false})
+    INSERT INTO creations (user_id, prompt, content, type, publish)
+    VALUES (${userId}, ${prompt}, ${secure_url}, 'image', ${publish ?? false})
     `;
-
+    
     res.json({ success: true, content: secure_url });
   } catch (err) {
     console.error("Error generating image:", err);
