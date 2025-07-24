@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className="md:max-w-96">
                     <img className="h-9" src={assets.logo} alt="logo" />
                     <p className="mt-6 text-sm">
-                       Experiance the Powe of AI with QuickAi <br /> Transform your content creation with our suite of premium AI Tools. Write article, generate images, and enhance your workflow
+                       Experiance the Power of AI with Vector.AI <br /> Transform your content creation with our suite of premium AI Tools. Write article, generate images, and enhance your workflow
                     </p>
                 </div>
                 <div className="flex-1 flex items-start md:justify-end gap-20">
@@ -33,7 +33,7 @@ export default function Footer() {
                 </div>
             </div>
             <p className="pt-4 text-center text-xs md:text-sm pb-5">
-                Copyright 2025 © QuickAi All Right Reserved.
+                Copyright 2025 © VectorAI All Right Reserved.
             </p>
         </footer>
     );

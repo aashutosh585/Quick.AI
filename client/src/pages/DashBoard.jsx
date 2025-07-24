@@ -21,7 +21,7 @@ export default function DashBoard() {
         headers: { Authorization: `Bearer ${await getToken()}` },
       });
 
-      if (data.success) {
+      if (data.success===true) {
         setCreations(data.creations);
       } else {
         toast.error(data.message);

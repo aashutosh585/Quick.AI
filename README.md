@@ -1,10 +1,10 @@
-# 🚀 Quick.AI - AI-Powered Content Creation Platform
+# 🚀 Vector.AI - AI-Powered Content Creation Platform
 
 A comprehensive full-stack AI SaaS application that empowers users to create content, generate images, and enhance their digital assets using cutting-edge artificial intelligence.
 
 ## 🌐 Live Demo
 
-**🔗 [Try Quick.AI Live](https://quickai-rho.vercel.app/)**
+**🔗 [Try Vector.AI Live](https://quickai-rho.vercel.app/)**
 
 ## 📋 Table of Contents
 

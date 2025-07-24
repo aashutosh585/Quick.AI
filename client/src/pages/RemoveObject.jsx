@@ -24,7 +24,8 @@ const RemoveObject = () => {
       setLoading(true);
 
       if(object.split(' ').length>1){
-        return toast('please enter only one onject name');
+        setLoading(false);
+        return toast('please enter only one object name');
       }
       const formData = new FormData();
       formData.append('image', input)
@@ -36,7 +37,7 @@ const RemoveObject = () => {
 
     
 
-      if (data.success) {
+      if (data.success===true) {
         setContent(data.content);
       } else {
         toast.error(data.message);
@@ -70,7 +71,7 @@ const RemoveObject = () => {
         />
 
         <p className="mt-6 text-sm font-medium">
-          Describe object name to removve
+          Describe object name to remove
         </p>
         <textarea
           rows={4}
