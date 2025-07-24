@@ -119,6 +119,14 @@ export const generateImage = async (req, res) => {
         message: "CLIPDROP_API_KEY is not set in environment variables.",
       });
     }
+
+    if(!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET){
+      console.log("CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, or CLOUDINARY_API_SECRET is not set in environment variables.");
+      return res.json({
+        success: false,
+        message: "CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, or CLOUDINARY_API_SECRET is not set in environment variables.",
+      });
+    }
     const { userId } = req.auth();
     const { prompt, publish } = req.body;
     const plan = req.plan;
