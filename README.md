@@ -1,5 +1,4 @@
-# AI-SaaS: A Content Creation Platform
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/aashutosh585/AI-SaaS)
+# Quick.AI: A Content Creation Platform
 
 This repository contains the source code for a full-stack AI-powered Software-as-a-Service (SaaS) application. It provides users with a suite of tools for generating and manipulating content, including articles, blog titles, images, and more.
 
