@@ -10,7 +10,7 @@ export const getUserCreations = async (req, res) => {
 
     res.json({ success: true, creations });
   } catch (err) {
-    console.error("Error fetching user creations:", err);
+
     res.json({ success: false, message: err.message });
   }
 }
@@ -24,7 +24,7 @@ export const getPublishedCreations = async (req, res) => {
 
     res.json({ success: true, creations });
   } catch (err) {
-    console.error("Error fetching user creations:", err);
+
     res.json({ success: false, message: err.message });
   }
 }
@@ -67,7 +67,7 @@ export const toggleLikeCreation = async (req, res) => {
 
     res.json({ success: true, message });
   } catch (err) {
-    console.error("Error fetching user creations:", err);
+
     res.json({ success: false, message: err.message });
   }
 }

@@ -56,7 +56,7 @@ export const generateArticle = async (req, res) => {
 
     res.json({ success: true, content });
   } catch (err) {
-    console.log("Error generating article:");
+
     res.json({ success: false, message: err.message });
   }
 };
@@ -104,7 +104,7 @@ export const generateBlogTitle = async (req, res) => {
 
     res.json({ success: true, content });
   } catch (err) {
-    console.log("Error generating article:");
+    
     res.json({ success: false, message: err.message });
   }
 };
@@ -112,25 +112,12 @@ export const generateBlogTitle = async (req, res) => {
 // Image Generation
 export const generateImage = async (req, res) => {
   try {
-    if(!process.env.CLIPDROP_API_KEY){
-      console.log("CLIPDROP_API_KEY is not set in environment variables." , process.env.CLIPDROP_API_KEY);
-      return res.json({
-        success: false,
-        message: "CLIPDROP_API_KEY is not set in environment variables.",
-      });
-    }
-    if(!process.env.CLOUDINARY_CLOUD_NAME){
-      console.log("CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, or CLOUDINARY_API_SECRET is not set in environment variables.");
-      return res.json({
-        success: false,
-        message: "CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, or CLOUDINARY_API_SECRET is not set in environment variables.",
-      });
-    }
+    
     const { userId } = req.auth();
     const { prompt, publish } = req.body;
     const plan = req.plan;
     
-    console.log("CLIPDROP_API_KEY is  set in environment variables." , process.env.CLIPDROP_API_KEY);
+
     // if (plan !== "premium") {
     //   return res.json({
     //     success: false,
@@ -168,7 +155,7 @@ export const generateImage = async (req, res) => {
     
     res.json({ success: true, content: secure_url });
   } catch (err) {
-    console.error("Error generating image:", err);
+
     res.json({ success: false, message: err.message });
   }
 };
@@ -216,7 +203,7 @@ export const removeImageBackground = async (req, res) => {
 
     res.json({ success: true, content: secure_url });
   } catch (err) {
-    console.error("Error generating image:", err);
+
     res.json({ success: false, message: err.message });
   }
 };
@@ -250,7 +237,7 @@ export const removeImageObject = async (req, res) => {
 
     res.json({ success: true, content: imageUrl });
   } catch (err) {
-    console.error("Error generating image:", err);
+
     res.json({ success: false, message: err.message });
   }
 };
@@ -307,7 +294,7 @@ export const resumeReview = async (req, res) => {
 
     res.json({ success: true, content });
   } catch (err) {
-    console.error("Error generating image:", err);
+
     res.json({ success: false, message: err.message });
   }
 };

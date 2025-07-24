@@ -38,8 +38,7 @@ const GenerateImages = () => {
         { prompt,publish },
         { headers: { Authorization: `Bearer ${await getToken()}` } }
       );
-      console.log("Image generation response:", data);
-      console.log("Image generation response:", data.success);
+      
       if (data.success===true) {
         setContent(data.content);
       } else {
@@ -47,8 +46,7 @@ const GenerateImages = () => {
       }
     
     } catch (err) {
-     
-      console.error("Error generating image:", err);
+
       toast.error(err.response?.data?.message || "Failed to generate image"); 
     }
     setLoading(false);
