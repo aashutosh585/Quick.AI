@@ -4,7 +4,7 @@ A comprehensive full-stack AI SaaS application that empowers users to create con
 
 ## 🌐 Live Demo
 
-**🔗 [Try Vector.AI Live](https://quickai-rho.vercel.app/)**
+**🔗 [Try Vector.AI Live](https://vectorai-inky.vercel.app/)**
 
 ## 📋 Table of Contents
 
