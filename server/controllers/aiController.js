@@ -22,7 +22,7 @@ export const generateArticle = async (req, res) => {
     const plan = req.plan;
     const free_usage = req.free_usage;
 
-    if (plan !== "premium" && free_usage >= 100) {
+    if (plan !== "premium" && free_usage >= 10) {
       return res.json({
         success: false,
         message:
@@ -69,7 +69,7 @@ export const generateBlogTitle = async (req, res) => {
     const plan = req.plan;
     const free_usage = req.free_usage;
 
-    if (plan !== "premium" && free_usage >= 100) {
+    if (plan !== "premium" && free_usage >= 10) {
       return res.json({
         success: false,
         message:
@@ -118,12 +118,12 @@ export const generateImage = async (req, res) => {
     const plan = req.plan;
     
 
-    // if (plan !== "premium") {
-    //   return res.json({
-    //     success: false,
-    //     message: "This feature is only available for premium subscription",
-    //   });
-    // }
+    if (plan !== "premium") {
+      return res.json({
+        success: false,
+        message: "This feature is only available for premium subscription",
+      });
+    }
     
     // 1) Build the form data
     const formData = new FormData();
@@ -167,12 +167,12 @@ export const removeImageBackground = async (req, res) => {
     const image = req.file;
     const plan = req.plan;
 
-    // if (plan !== "premium") {
-    //   return res.json({
-    //     success: false,
-    //     message: "This feature is only available for premium subscription",
-    //   });
-    // }
+    if (plan !== "premium") {
+      return res.json({
+        success: false,
+        message: "This feature is only available for premium subscription",
+      });
+    }
     // Tell Cloudinary to run their AI-backed background removal:
     const { secure_url } = await cloudinary.uploader.upload(image.path, {
       // Option A: top‑level parameter
@@ -215,12 +215,12 @@ export const removeImageObject = async (req, res) => {
     const image = req.file;
     const plan = req.plan;
 
-    // if (plan !== "premium") {
-    //   return res.json({
-    //     success: false,
-    //     message: "This feature is only available for premium subscription",
-    //   });
-    // }
+    if (plan !== "premium") {
+      return res.json({
+        success: false,
+        message: "This feature is only available for premium subscription",
+      });
+    }
 
     const { public_id } = await cloudinary.uploader.upload(image.path);
     // const imageUrl = cloudinary.url(public_id, {
@@ -248,12 +248,12 @@ export const resumeReview = async (req, res) => {
     const resume = req.file;
     const plan = req.plan;
 
-    // if (plan !== "premium") {
-    //   return res.json({
-    //     success: false,
-    //     message: "This feature is only available for premium subscription",
-    //   });
-    // }
+    if (plan !== "premium") {
+      return res.json({
+        success: false,
+        message: "This feature is only available for premium subscription",
+      });
+    }
 
     if (resume.size > 5 * 1024 * 1024) {
       return res.json({
