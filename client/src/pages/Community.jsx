@@ -1,10 +1,9 @@
-import React from "react";
+import React, { use } from "react";
 import { useState, useEffect } from "react";
-import { useUser } from "@clerk/clerk-react";
 import { Heart } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth,useUser } from "@clerk/clerk-react";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL ;
 
@@ -81,7 +80,7 @@ const Community = () => {
 
             <div className="absolute bottom-0 top-0 right-0 left-0 flex gap-2 items-end justify-end group-hover:justify-between p-3 group-hover:bg-gradient-to-b from-transparent to-black/80 text-white rounded-lg transition-all duration-300">
               <p className="text-sm hidden group-hover:block">
-                {creation.prompt}
+                {creation.prompt} :: {user.fullName}
               </p>
               <div className="flex items-center gap-1">
                 <p>{creation.likes.length}</p>
