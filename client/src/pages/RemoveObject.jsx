@@ -1,7 +1,5 @@
-import { Scissors } from "lucide-react";
-import React from "react";
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
+import { Sparkles,Scissors } from "lucide-react";
 import axios from "axios";
 import {  useAuth } from '@clerk/clerk-react'
 import toast from "react-hot-toast";

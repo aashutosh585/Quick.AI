@@ -19,16 +19,18 @@ export const generateArticle = async (req, res) => {
   try {
     const { userId } = req.auth();
     const { prompt, length } = req.body;
-    const plan = req.plan;
-    const free_usage = req.free_usage;
 
-    if (plan !== "premium" && free_usage >= 10) {
-      return res.json({
-        success: false,
-        message:
-          "Free usage limit exceeded. Upgrade to premium for more requests.",
-      });
-    }
+
+    // const plan = req.plan;
+    // const free_usage = req.free_usage;
+
+    // if (plan !== "premium" && free_usage >= 10) {
+    //   return res.json({
+    //     success: false,
+    //     message:
+    //       "Free usage limit exceeded. Upgrade to premium for more requests.",
+    //   });
+    // }
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.0-flash",
@@ -66,16 +68,18 @@ export const generateBlogTitle = async (req, res) => {
   try {
     const { userId } = req.auth();
     const { prompt } = req.body;
-    const plan = req.plan;
-    const free_usage = req.free_usage;
 
-    if (plan !== "premium" && free_usage >= 10) {
-      return res.json({
-        success: false,
-        message:
-          "Free usage limit exceeded. Upgrade to premium for more requests.",
-      });
-    }
+
+    // const plan = req.plan;
+    // const free_usage = req.free_usage;
+
+    // if (plan !== "premium" && free_usage >= 10) {
+    //   return res.json({
+    //     success: false,
+    //     message:
+    //       "Free usage limit exceeded. Upgrade to premium for more requests.",
+    //   });
+    // }
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.0-flash",
@@ -94,13 +98,13 @@ export const generateBlogTitle = async (req, res) => {
     await sql`INSERT INTO creations (user_id, prompt, content, type)
     VALUES (${userId}, ${prompt}, ${content} , 'article')`;
 
-    if (plan !== "premium") {
-      await clerkClient.users.updateUserMetadata(userId, {
-        privateMetadata: {
-          free_usage: free_usage + 1,
-        },
-      });
-    }
+    // if (plan !== "premium") {
+    //   await clerkClient.users.updateUserMetadata(userId, {
+    //     privateMetadata: {
+    //       free_usage: free_usage + 1,
+    //     },
+    //   });
+    // }
 
     res.json({ success: true, content });
   } catch (err) {
@@ -115,15 +119,15 @@ export const generateImage = async (req, res) => {
     
     const { userId } = req.auth();
     const { prompt, publish } = req.body;
-    const plan = req.plan;
+    // const plan = req.plan;
     
 
-    if (plan !== "premium") {
-      return res.json({
-        success: false,
-        message: "This feature is only available for premium subscription",
-      });
-    }
+    // if (plan !== "premium") {
+    //   return res.json({
+    //     success: false,
+    //     message: "This feature is only available for premium subscription",
+    //   });
+    // }
     
     // 1) Build the form data
     const formData = new FormData();
@@ -165,14 +169,14 @@ export const removeImageBackground = async (req, res) => {
   try {
     const { userId } = req.auth();
     const image = req.file;
-    const plan = req.plan;
+    // const plan = req.plan;
 
-    if (plan !== "premium") {
-      return res.json({
-        success: false,
-        message: "This feature is only available for premium subscription",
-      });
-    }
+    // if (plan !== "premium") {
+    //   return res.json({
+    //     success: false,
+    //     message: "This feature is only available for premium subscription",
+    //   });
+    // }
     // Tell Cloudinary to run their AI-backed background removal:
     const { secure_url } = await cloudinary.uploader.upload(image.path, {
       // Option A: top‑level parameter
@@ -213,14 +217,14 @@ export const removeImageObject = async (req, res) => {
     const { userId } = req.auth();
     const { object } = req.body;
     const image = req.file;
-    const plan = req.plan;
+    // const plan = req.plan;
 
-    if (plan !== "premium") {
-      return res.json({
-        success: false,
-        message: "This feature is only available for premium subscription",
-      });
-    }
+    // if (plan !== "premium") {
+    //   return res.json({
+    //     success: false,
+    //     message: "This feature is only available for premium subscription",
+    //   });
+    // }
 
     const { public_id } = await cloudinary.uploader.upload(image.path);
     // const imageUrl = cloudinary.url(public_id, {
@@ -246,14 +250,14 @@ export const resumeReview = async (req, res) => {
   try {
     const { userId } = req.auth();
     const resume = req.file;
-    const plan = req.plan;
+    // const plan = req.plan;
 
-    if (plan !== "premium") {
-      return res.json({
-        success: false,
-        message: "This feature is only available for premium subscription",
-      });
-    }
+    // if (plan !== "premium") {
+    //   return res.json({
+    //     success: false,
+    //     message: "This feature is only available for premium subscription",
+    //   });
+    // }
 
     if (resume.size > 5 * 1024 * 1024) {
       return res.json({

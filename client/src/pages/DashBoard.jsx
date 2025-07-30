@@ -6,7 +6,7 @@ import { useUser } from "@clerk/clerk-react";
 import CreationItem from "../components/CreationItem.jsx";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useAuth,Protect } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -55,9 +55,7 @@ export default function DashBoard() {
           <div className="text-slate-600">
             <p className="text-sm">Active Plan</p>
             <h2 className="text-xl font-semibold">
-              <Protect plan="premium" fallback="Free">
-                Premium
-              </Protect>
+              Free
             </h2>
           </div>
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#FF61C5] to-[#9E53EE] text-white flex justify-center items-center">
