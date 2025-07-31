@@ -1,7 +1,7 @@
 // src/components/Sidebar.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useClerk, useUser } from "@clerk/clerk-react";
+import { Protect, useClerk, useUser } from "@clerk/clerk-react";
 import {
   House,
   SquarePen,
@@ -73,8 +73,6 @@ export default function Sidebar({ sidebar, setSidebar }) {
         </div>
       </div>
 
-   
-
       {/* Profile & Sign Out Buttons */}
       <div className="px-6 py-4 w-full border-t border-gray-200">
         <div className="flex items-center justify-between">
@@ -92,6 +90,12 @@ export default function Sidebar({ sidebar, setSidebar }) {
             />
             <div>
               <h1 className="text-sm font-medium">{user.fullName}</h1>
+              <p className="text-xs text-gray-500">
+                <Protect plan="premium" fallback="Free">
+                  Premium
+                </Protect>{" "}
+                Plan
+              </p>
             </div>
           </div>
           <LogOut

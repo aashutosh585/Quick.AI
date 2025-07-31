@@ -1,4 +1,3 @@
-import React, { use } from "react";
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import axios from "axios";
