@@ -21,16 +21,16 @@ export const generateArticle = async (req, res) => {
     const { prompt, length } = req.body;
 
 
-    // const plan = req.plan;
-    // const free_usage = req.free_usage;
+    const plan = req.plan;
+    const free_usage = req.free_usage;
 
-    // if (plan !== "premium" && free_usage >= 10) {
-    //   return res.json({
-    //     success: false,
-    //     message:
-    //       "Free usage limit exceeded. Upgrade to premium for more requests.",
-    //   });
-    // }
+    if (plan !== "premium" && free_usage >= 10) {
+      return res.json({
+        success: false,
+        message:
+          "Free usage limit exceeded. Upgrade to premium for more requests.",
+      });
+    }
 
     const response = await AI.chat.completions.create({
       model: "gemini-2.0-flash",
@@ -120,6 +120,7 @@ export const generateImage = async (req, res) => {
     const { userId } = req.auth();
     const { prompt, publish } = req.body;
     const plan = req.plan;
+    console.log(plan);
     
 
     if (plan !== "premium") {
@@ -167,41 +168,46 @@ export const generateImage = async (req, res) => {
 // Remove Background Image
 export const removeImageBackground = async (req, res) => {
   try {
-    // your auth middleware should put user info into req.auth()
-    const { userId } = req.auth();          
-    const image = req.file;                  
-    const plan  = req.plan;                  
+    const { userId } = req.auth();
+    const image = req.file;
+    const plan = req.plan;
+    console.log(plan);
 
-    if (plan !== 'premium') {
-      return res.status(403).json({
+    console.log("Image File:", JSON.stringify(image, null, 2));
+
+    if (plan !== "premium") {
+      return res.json({
         success: false,
-        message: 'This feature is only available for premium subscription',
+        message: "only available for premium.",
       });
     }
 
-    // Upload with AI-powered background removal:
     const { secure_url } = await cloudinary.uploader.upload(image.path, {
       transformation: [
         {
-          // the only valid values here are 'cloudinary_ai' or 'cloudinary_ai:fine_edges'
-          background_removal: 'cloudinary_ai',
+          effect: "background_removal",
+          background_removal: "remove_the_background",
         },
       ],
     });
 
-    // Persist the new image URL
-    await sql`
-      INSERT INTO creations (user_id, prompt, content, type)
-      VALUES (${userId}, 'Remove background from image', ${secure_url}, 'image')
-    `;
+    // Simpan hasil ke database
+    try {
+      await sql`
+        INSERT INTO creations (user_id, prompt, content, type)
+        VALUES (${userId}, 'Remove background from image', ${secure_url}, 'image')
+      `;
+      console.log("Database insert successful");
+    } catch (dbError) {
+      console.error("Database Error:", JSON.stringify(dbError, null, 2));
+      throw new Error("Failed to save to database: " + dbError.message);
+    }
 
+    // Kirim respons berhasil
     return res.json({ success: true, content: secure_url });
-  } catch (err) {
-    console.error('Background removal error:', err);
-    return res.status(500).json({
-      success: false,
-      message: err.message,
-    });
+  } catch (error) {
+    console.error("Error in removeImageBackground:", JSON.stringify(error, null, 2));
+    return res.json({ success: false, message: error.message });
   }
 };
 
